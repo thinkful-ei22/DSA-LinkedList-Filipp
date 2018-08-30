@@ -50,6 +50,7 @@ function findLast(list) {
   console.log(`The last node in this list is ${currNode.value}`);
 }
 
+
 module.exports = {
   display, size, isEmpty, findPrevious, findLast
 };
