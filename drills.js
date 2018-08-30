@@ -31,8 +31,14 @@ class LinkedList {
       return null;
     }
 
+
     let currNode = this.head;
     let previousNode = this.head;
+
+    if (currNode.value === itemAfter) {
+      return this.insertFirst(newItem);
+    }
+
 
     while((currNode.value !== itemAfter)) {
       if (currNode.next === null) {
@@ -44,6 +50,46 @@ class LinkedList {
     }
     let newNode = new _Node(newItem, currNode);
     previousNode.next = newNode;
+  }
+
+  insertAfter(newItem, itemBefore) {
+    if (!this.head) {
+      return null;
+    }
+
+    let currNode = this.head;
+
+    while (currNode.value !== itemBefore) {
+      currNode = currNode.next;
+    }
+    let newNode = new _Node(newItem, currNode.next);
+    currNode.next = newNode;
+  }
+
+  insertAt(newItem, wantedPosition) {
+    if (!this.head) {
+      return null;
+    }
+
+    if (wantedPosition === 1) {
+      return this.insertFirst(newItem);
+    }
+    let currNode = this.head;
+    let previousNode = this.head;
+    let currPosition = 0;
+
+    while (wantedPosition-1 !== currPosition) {
+      if (currNode.next === null) {
+        return this.insertLast(newItem);
+      } else {
+        previousNode = currNode;
+        currNode = currNode.next;
+        currPosition++;
+      }
+    }
+    let newNode = new _Node(newItem, currNode);
+    previousNode.next = newNode;
+
   }
 
   remove(item) {
@@ -98,13 +144,17 @@ function main() {
   SLL.insertLast('Apollo');
   SLL.insertLast('Boomer');
   SLL.insertLast('Helo');
-  //SLL.insertLast('Husker');
-  //SLL.insertLast('Starbuck');
-  //SLL.insertLast('Tauhida');
+  SLL.insertLast('Husker');
+  SLL.insertLast('Starbuck');
+  SLL.insertLast('Tauhida');
 
-  //SLL.remove('squirell');
+  SLL.remove('squirell');
 
-  SLL.insertBefore('NEW ITEM', 'Helo');
+  SLL.insertBefore('Athena', 'Boomer');
+  SLL.insertAfter('Hotdog', 'Helo');
+  SLL.insertAt('Kat', 3);
+
+  SLL.remove('Tauhida');
 
   console.log(JSON.stringify(SLL));
 }
